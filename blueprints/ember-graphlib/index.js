@@ -1,7 +1,7 @@
 module.exports = {
   afterInstall: function () {
     return this.addPackagesToProject([
-      {name: 'graphlib', target: 'sandersky/graphlib'}
+      {name: 'graphlib', target: 'ciena-blueplanet/graphlib'}
     ])
       .then(() => {
         return this.addAddonsToProject({
