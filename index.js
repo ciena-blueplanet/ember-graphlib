@@ -9,6 +9,11 @@ module.exports = {
   treeForAddon (tree) {
     const graphlibPath = path.dirname(require.resolve('graphlib/index.js'))
     const graphlibTree = this.treeGenerator(graphlibPath)
+
+    if (!tree) {
+      return this._super.treeForAddon.call(this, graphlibTree)
+    }
+
     const trees = mergeTrees([graphlibTree, tree], {
       overwrite: true
     })

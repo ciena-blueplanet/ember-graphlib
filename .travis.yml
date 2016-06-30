@@ -38,8 +38,7 @@ before_script:
 - sleep 3 # give xvfb some time to start
 script:
 - npm run lint
-# TODO: re-enable below line (it is failing on CI but can't be produced on dev's machine)
-# - ember try:one $EMBER_TRY_SCENARIO --- ember test
+- ember try:one $EMBER_TRY_SCENARIO --- ember test
 after_success:
 - .travis/publish-coverage.sh
 before_deploy:
