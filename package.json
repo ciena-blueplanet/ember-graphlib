@@ -39,7 +39,7 @@
     "ember-resolver": "^2.0.3",
     "eslint": "^2.13.1",
     "eslint-config-frost-standard": "^2.0.0",
-    "graphlib": "sandersky/graphlib",
+    "graphlib": "ciena-blueplanet/graphlib",
     "loader.js": "^4.0.1"
   },
   "keywords": [
