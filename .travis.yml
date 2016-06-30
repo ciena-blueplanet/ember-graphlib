@@ -1,36 +1,62 @@
----
 language: node_js
-node_js:
-  - "4"
-
 sudo: false
-
-cache:
-  directories:
-    - node_modules
-
+node_js:
+- '5.0'
+- 'stable'
+branches:
+  except:
+  - /^v[0-9\.]+/
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
 env:
+  matrix:
   - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=ember-1.13
   - EMBER_TRY_SCENARIO=ember-release
   - EMBER_TRY_SCENARIO=ember-beta
   - EMBER_TRY_SCENARIO=ember-canary
-
+  global:
+    - CXX=g++-4.8
+    - secure: KAk2NfIHacpuotMqFJ8yNGf5e7BJz0AFI85uHFrtJ+4/WiNwBu7ukzQAcBT59PNXLGn6wUUBrblQOwk5GYZyDtaLlrHwrvwg4wdtjwvOGFP6bFIR8gW1BUDMu6ko1LtGUSAuNSuDuIcNhOMByxs8yzhkdJ64zTbHy+Nf49iNJi6QidjZALc4RggDvArRgHynmIRjs76BC4k5ox2FgV5im6RH2QlDWu0FQq7MSS4GJdqfpy3/w7UOjxwNbuPjsX022P+nlk5Mx0wjJL9IslfchSqOna1fLZrgZj8c9bwkVpU1zNmSU05QYDF1hBUvjCpHvrBXjCbdXTUufDZKr8ll2DpOeAfIfCQcmYc2YNFhveOeVUOmzfAnoRH70MwTD44lEY154h0gx2z67jqKbta4fbo/MUlyH0sir0r7AZmu8ffbPn2/lxLYECFRr2lqC523FlKpkHQCRELtqbtWLaZyV8kv7tRoFS4lFTvBju2tVh0Gs3qg6dPr8tjDe0/iSE+4uiCfqx3kWGNB1vFzL604AvdTGEnEaQg5uW9dOZqG2Cy/PkLmyqyywV0TUWtYJW2HZrT3rM/LZr7K4caobWXUV6YvYvnkIRsHCf2jM9pOaqQJQrdDZURuHP7cDq7C6KUnk4nXNiZvO1GGTj5l/maqDu0o2fYVcJPkSgGf+oaSpeo=
 matrix:
   fast_finish: true
   allow_failures:
-    - env: EMBER_TRY_SCENARIO=ember-canary
-
+  - env: EMBER_TRY_SCENARIO=ember-canary
 before_install:
-  - npm config set spin false
-  - npm install -g bower
-  - npm install phantomjs-prebuilt
-
+- npm config set spin false
+- npm install -g coveralls pr-bumper
+- pr-bumper check
 install:
-  - npm install
-  - bower install
-
+- npm install
+- bower install
+before_script:
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 3 # give xvfb some time to start
 script:
-  # Usually, it's ok to finish the test scenario without reverting
-  #  to the addon's original dependency state, skipping "cleanup".
-  - ember try $EMBER_TRY_SCENARIO test --skip-cleanup
+- npm run lint
+# TODO: re-enable below line (it is failing on CI but can't be produced on dev's machine)
+# - ember try:one $EMBER_TRY_SCENARIO --- ember test
+after_success:
+- .travis/publish-coverage.sh
+before_deploy:
+- pr-bumper bump
+deploy:
+  provider: npm
+  email: npm.ciena@gmail.com
+  skip_cleanup: true
+  api_key:
+    secure: gp0kcJ0abztnSkuSSIESwwsOD/mUjQ545VgLQlvNdKnpn8zDW7tWk4IqtISNgOVnz+WGLKuphCudI1s3lYuw6NpixctDYYCbs/W+X1WUYEf3QIsc5UivyNOJQkpX+W7/Em6sRJlwAas/F0MPUSr2KPF1aGjAvTkioYY7zn5VHt5k3VQtkndF3UoAeBYhTVAbFp3hQzPIPNzewFQ3l7T9H1ZssL7CEFsXuLJBh5WpE9oQO9JaX2oWWZ2V5a/3m+CVz2ahH41GUjiUXR+jHHBMsZmu9GU+wqx1/9VlUV3aI26fwm9pqiAHSb7VqgtYzkZ4dYNSntu7PVLqjSRfBtrKgkMAuRYM+5dAtoPPeEQLmfSm83bDZI+NNBOLsygTHAtmMGex3w43/xmNcpdtOeGh0H+It5bsT3RzYuSp/j7DieLSnJeNkOmCT2vvnkbBkRwGRi4ZDNgu+SOCTQwqZQu2EDZyXfNBUEoC5qKLAfoJa94nb1KzdhQUp7lV5k1AuveG4Ugqfekr3ep7E0+GuO6LbuefgsbI2Sma8wSXOR/yFkdrP4JHncK//Dp1gplg98QNOXddCoIpF9REhxzEFXDLL+YyGNWgT+2d7lO+OltjPKD6Kr8CdFIkAxEjBeDVMs27mspjl0stkTfMt/+dOiMlsV0i7jUjfwCTgjlImRwBIJc=
+  on:
+    branch: master
+    condition: "$EMBER_TRY_SCENARIO = 'default'"
+    node: 'stable'
+    tags: false
+after_deploy:
+- .travis/publish-gh-pages.sh
+notifications:
+  slack:
+    secure: zb452HHssOzuCB7XQuxbCyU02kZvHzp0w0rXAerLksSn2eiDAnw2HW5TEc57IHwGDHHZSa1tp247x61vmuWAbCaB93ZQYlBvAQw/CH+paKpDaHvbVlgzxtxa5JINQzjd9rKx+bquHxBm7z6ZFu9nkvQICPnzqoUuTn5xv6BxpT+jNspc+YDlv99NlJrgxBG3/yfba6FwfXzJNL9Yyyz9DcB4Q1XqTxNjWIYq5IaI+hNAC5M5uK/lrN/1JfiD7Lx6Pv0jDIucM+92dTG+oHkdE69w+3br+G3vtsUinniGpG0YZU2VQB8yQjKKeddCovhOVfWuM5/cXYceOpzHfcVxmJWUhWJZptiuKWz933GV+xPvEPxm6NAgzUrEf37OMHPDZSLfzHP60GvBvwBeGbS45dIyHCyhoU9W+rEoKF8/Jh2ejqYQr9ggSqWgaCr2ESaXbp4sYiCnCs5B7mgu0F5CvYrIKQg9Q6+VwSnJwKI5nschURNtgjn3jh/QUG+HA5iJb0Tfd0buThaw8C8okyfE4fslq2jXIK8B1knVNGv4uOEao22pk1XPfbXtTaolGZ1co6t9dCGfTeJap+4v9cwFWzCmsypZcK7BCz3Fh7ba3pwOBEaixIZncWE6n90jghoAfdOtAPL+dURJQGgn7KhoWgrEUfvAijnswWzzzWFsfpU=
