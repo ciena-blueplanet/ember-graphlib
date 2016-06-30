@@ -1,0 +1,54 @@
+{
+  "name": "ember-graphlib",
+  "version": "0.0.0",
+  "description": "The default blueprint for ember-cli addons.",
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "ember build",
+    "lint": "npm run lint-js",
+    "lint-js": "eslint addon app config tests *.js",
+    "start": "ember server",
+    "test": "npm run lint && ember test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ciena-blueplanet/ember-graphlib.git"
+  },
+  "engines": {
+    "node": ">= 5.0.0"
+  },
+  "author": "Matthew Dahl (https://github.com/sandersky)",
+  "license": "MIT",
+  "devDependencies": {
+    "broccoli-asset-rev": "^2.4.2",
+    "ember-cli": "2.6.2",
+    "ember-cli-app-version": "^1.0.0",
+    "ember-cli-dependency-checker": "^1.2.0",
+    "ember-cli-htmlbars": "^1.0.3",
+    "ember-cli-htmlbars-inline-precompile": "^0.3.1",
+    "ember-cli-inject-live-reload": "^1.4.0",
+    "ember-cli-mocha": "0.10.4",
+    "ember-cli-uglify": "^1.2.0",
+    "ember-disable-prototype-extensions": "^1.1.0",
+    "ember-export-application-global": "^1.0.5",
+    "ember-load-initializers": "^0.5.1",
+    "ember-lodash": "0.0.9",
+    "ember-resolver": "^2.0.3",
+    "eslint": "^2.13.1",
+    "eslint-config-frost-standard": "^2.0.0",
+    "graphlib": "sandersky/graphlib",
+    "loader.js": "^4.0.1"
+  },
+  "keywords": [
+    "ember-addon"
+  ],
+  "dependencies": {
+    "ember-cli-babel": "^5.1.6"
+  },
+  "ember-addon": {
+    "configPath": "tests/dummy/config"
+  }
+}
