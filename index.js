@@ -1,5 +1,6 @@
 'use strict'
 
+const Funnel = require('broccoli-funnel')
 const mergeTrees = require('broccoli-merge-trees')
 const path = require('path')
 
@@ -8,13 +9,19 @@ module.exports = {
 
   treeForAddon (tree) {
     const graphlibPath = path.dirname(require.resolve('graphlib/index.js'))
-    const graphlibTree = this.treeGenerator(graphlibPath)
+
+    const graphlibFunnel = new Funnel(graphlibPath, {
+      include: [
+        'lib/**/*.js',
+        'index.js'
+      ]
+    })
 
     if (!tree) {
-      return this._super.treeForAddon.call(this, graphlibTree)
+      return this._super.treeForAddon.call(this, graphlibFunnel)
     }
 
-    const trees = mergeTrees([graphlibTree, tree], {
+    const trees = mergeTrees([graphlibFunnel, tree], {
       overwrite: true
     })
 
