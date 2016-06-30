@@ -39,14 +39,14 @@
     "ember-resolver": "^2.0.3",
     "eslint": "^2.13.1",
     "eslint-config-frost-standard": "^2.0.0",
-    "graphlib": "ciena-blueplanet/graphlib",
     "loader.js": "^4.0.1"
   },
   "keywords": [
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.6"
+    "ember-cli-babel": "^5.1.6",
+    "graphlib": "https://github.com/ciena-blueplanet/graphlib/archive/v2.1.1-pre.tar.gz"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
