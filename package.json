@@ -9,7 +9,7 @@
   "scripts": {
     "build": "ember build",
     "lint": "npm run lint-js",
-    "lint-js": "eslint addon app config tests *.js",
+    "lint-js": "eslint addon app blueprints config tests *.js",
     "start": "ember server",
     "test": "npm run lint && ember test"
   },
