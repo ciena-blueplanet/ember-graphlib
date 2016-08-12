@@ -47,7 +47,7 @@
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.8",
+    "ember-cli-babel": "^5.1.9",
     "graphlib": "https://github.com/ciena-blueplanet/graphlib/archive/v2.1.1-pre.tar.gz"
   },
   "ember-addon": {
