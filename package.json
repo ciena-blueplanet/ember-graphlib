@@ -36,7 +36,7 @@
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
-    "ember-lodash-shim": "0.1.17",
+    "ember-lodash-shim": "0.1.18",
     "ember-resolver": "^2.0.3",
     "eslint": "^3.3.1",
     "eslint-config-frost-standard": "^3.0.0",
