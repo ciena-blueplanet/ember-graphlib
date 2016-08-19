@@ -36,7 +36,7 @@
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
-    "ember-lodash-shim": "0.1.18",
+    "ember-lodash-shim": "^1.0.0",
     "ember-resolver": "^2.0.3",
     "eslint": "^3.3.1",
     "eslint-config-frost-standard": "^3.0.0",
@@ -44,10 +44,18 @@
     "lodash-es": "4.15.0"
   },
   "keywords": [
-    "ember-addon"
+    "algorithm",
+    "directed",
+    "ember-addon",
+    "graph",
+    "graphlib",
+    "multi-graph",
+    "undirected"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.9",
+    "broccoli-funnel": "^1.0.0",
+    "broccoli-merge-trees": "^1.0.0",
+    "ember-cli-babel": "^5.1.6",
     "graphlib": "https://github.com/ciena-blueplanet/graphlib/archive/v2.1.1-pre.tar.gz"
   },
   "ember-addon": {

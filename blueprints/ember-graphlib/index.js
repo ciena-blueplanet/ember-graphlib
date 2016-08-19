@@ -2,7 +2,7 @@ module.exports = {
   afterInstall: function () {
     return this.addAddonsToProject({
       packages: [
-        {name: 'ember-lodash-shim', target: '0.1.2'}
+        {name: 'ember-lodash-shim', target: '^1.0.0'}
       ]
     })
   },
