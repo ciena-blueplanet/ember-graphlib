@@ -25,7 +25,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.2",
     "ember-cli": "2.7.0",
-    "ember-cli-app-version": "^1.0.0",
+    "ember-cli-app-version": "^2.0.0",
     "ember-cli-dependency-checker": "^1.2.0",
     "ember-cli-htmlbars": "^1.0.11",
     "ember-cli-htmlbars-inline-precompile": "^0.3.1",
@@ -36,17 +36,25 @@
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
-    "ember-lodash-shim": "0.1.4",
+    "ember-lodash-shim": "^1.0.0",
     "ember-resolver": "^2.0.3",
     "eslint": "^3.2.2",
     "eslint-config-frost-standard": "^3.0.0",
     "loader.js": "^4.0.1",
-    "lodash-es": "4.14.1"
+    "lodash-es": "4.15.0"
   },
   "keywords": [
-    "ember-addon"
+    "algorithm",
+    "directed",
+    "ember-addon",
+    "graph",
+    "graphlib",
+    "multi-graph",
+    "undirected"
   ],
   "dependencies": {
+    "broccoli-funnel": "^1.0.0",
+    "broccoli-merge-trees": "^1.0.0",
     "ember-cli-babel": "^5.1.6",
     "graphlib": "https://github.com/ciena-blueplanet/graphlib/archive/v2.1.1-pre.tar.gz"
   },
