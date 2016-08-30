@@ -1,3 +1,7 @@
+# 1.0.1
+
+* Consuming latest version of dagre which is now tested.
+
 # 1.0.0
 
 * **Added** missing dependencies.
