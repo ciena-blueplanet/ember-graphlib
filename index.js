@@ -8,12 +8,11 @@ module.exports = {
   name: 'graphlib',
 
   treeForAddon (tree) {
-    const graphlibPath = path.dirname(require.resolve('graphlib/index.js'))
+    const graphlibPath = path.dirname(require.resolve('graphlib/src/index.js'))
 
     const graphlibFunnel = new Funnel(graphlibPath, {
       include: [
-        'lib/**/*.js',
-        'index.js'
+        '**/*.js'
       ]
     })
 
