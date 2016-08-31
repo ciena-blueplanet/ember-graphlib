@@ -56,7 +56,8 @@
     "broccoli-funnel": "^1.0.0",
     "broccoli-merge-trees": "^1.0.0",
     "ember-cli-babel": "^5.1.6",
-    "graphlib": "https://github.com/ciena-blueplanet/graphlib/archive/v2.1.1-beta.1.tar.gz"
+    "graphlib": "https://github.com/ciena-blueplanet/graphlib/archive/v2.1.1-beta.2.tar.gz",
+    "npm-install-security-check": "^1.0.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
