@@ -1,3 +1,8 @@
+# 1.0.2
+
+* **Added** copy of tests from `graphlib` fork to ensure project remains functional.
+* **Fixed** build by consuming latest version of `graphlib` from Ciena fork.
+
 # 1.0.1
 
 * Consuming latest version of dagre which is now tested.
