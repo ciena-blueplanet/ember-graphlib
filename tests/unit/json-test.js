@@ -1,6 +1,6 @@
 import chai from './chai'
 const {expect} = chai
-import {Graph, json} from 'graphlib'
+import {Graph, json} from 'ciena-graphlib'
 const {read, write} = json
 import {describe, it} from 'mocha'
 

@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import {Graph} from 'graphlib'
+import {Graph} from 'ciena-graphlib'
 import _ from 'lodash'
 import {beforeEach, describe, it} from 'mocha'
 

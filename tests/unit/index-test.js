@@ -3,7 +3,7 @@
 
 import chai from './chai'
 const expect = chai.expect
-import graphlib from 'graphlib'
+import graphlib from 'ciena-graphlib'
 import {describe, it} from 'mocha'
 
 describe('index', function () {
@@ -12,7 +12,6 @@ describe('index', function () {
     expect(graphlib.Graph).to.be.a('function')
     expect(graphlib.json).to.be.a('object')
     expect(graphlib.alg).to.be.a('object')
-    expect(graphlib.version).to.be.a('string')
   })
 
   it('can do simple graph operations', function () {
