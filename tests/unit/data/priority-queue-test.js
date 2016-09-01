@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import chai from '../chai'
 const {expect} = chai
-import PriorityQueue from 'graphlib/data/priority-queue'
+import PriorityQueue from 'ciena-graphlib/data/priority-queue'
 import {beforeEach, describe, it} from 'mocha'
 
 describe('data.PriorityQueue', function () {

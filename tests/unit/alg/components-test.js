@@ -1,7 +1,7 @@
 import chai from '../chai'
 const {expect} = chai
 import _ from 'lodash'
-import {alg, Graph} from 'graphlib'
+import {alg, Graph} from 'ciena-graphlib'
 const {components} = alg
 import {describe, it} from 'mocha'
 

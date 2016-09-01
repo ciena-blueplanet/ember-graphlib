@@ -1,6 +1,6 @@
 # ember-graphlib
 
-This is an Ember shim for [graphlib](https://github.com/ciena-blueplanet/graphlib).
+This is an Ember shim for [ciena-graphlib](https://github.com/ciena-blueplanet/graphlib).
 
 ###### Dependencies
 

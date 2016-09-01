@@ -1,10 +1,15 @@
 module.exports = {
   afterInstall: function () {
-    return this.addAddonsToProject({
-      packages: [
-        {name: 'ember-lodash-shim', target: '^1.0.0'}
-      ]
-    })
+    return this.addPackagesToProject([
+      {name: 'ciena-graphlib', target: '^1.0.1'}
+    ])
+      .then(() => {
+        return this.addAddonsToProject({
+          packages: [
+            {name: 'ember-lodash-shim', target: '^1.0.0'}
+          ]
+        })
+      })
   },
 
   normalizeEntityName: function () {
