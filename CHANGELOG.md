@@ -1,3 +1,9 @@
+# 2.0.0
+
+* Now exporting `ciena-graphlib` instead of `graphlib` as we are now consuming Ciena's graphlib fork from npm.
+
+
+
 # 1.0.2
 
 * **Added** copy of tests from `graphlib` fork to ensure project remains functional.
