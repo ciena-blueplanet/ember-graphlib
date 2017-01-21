@@ -1,6 +1,5 @@
-import chai from '../chai'
-const {expect} = chai
-import {alg, Graph} from 'ciena-graphlib'
+import {expect} from 'chai'
+import {Graph, alg} from 'ciena-graphlib'
 const {dijkstraAll} = alg
 import {describe, it} from 'mocha'
 

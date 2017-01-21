@@ -1,6 +1,5 @@
-import chai from '../chai'
-const {expect} = chai
-import {alg, Graph} from 'ciena-graphlib'
+import {expect} from 'chai'
+import {Graph, alg} from 'ciena-graphlib'
 const {floydWarshall} = alg
 import {describe, it} from 'mocha'
 
@@ -18,28 +17,28 @@ describe('alg.floydWarshall', function () {
 
     expect(floydWarshall(g, weightFn(g))).to.eql({
       a: {
-        a: { distance: 0 },
-        b: { distance: 1, predecessor: 'a' },
-        c: { distance: -2, predecessor: 'a' },
-        d: { distance: 1, predecessor: 'c' }
+        a: {distance: 0},
+        b: {distance: 1, predecessor: 'a'},
+        c: {distance: -2, predecessor: 'a'},
+        d: {distance: 1, predecessor: 'c'}
       },
       b: {
-        a: { distance: Number.POSITIVE_INFINITY },
-        b: { distance: 0 },
-        c: { distance: Number.POSITIVE_INFINITY },
-        d: { distance: 3, predecessor: 'b' }
+        a: {distance: Number.POSITIVE_INFINITY},
+        b: {distance: 0},
+        c: {distance: Number.POSITIVE_INFINITY},
+        d: {distance: 3, predecessor: 'b'}
       },
       c: {
-        a: { distance: Number.POSITIVE_INFINITY },
-        b: { distance: Number.POSITIVE_INFINITY },
-        c: { distance: 0 },
-        d: { distance: 3, predecessor: 'c' }
+        a: {distance: Number.POSITIVE_INFINITY},
+        b: {distance: Number.POSITIVE_INFINITY},
+        c: {distance: 0},
+        d: {distance: 3, predecessor: 'c'}
       },
       d: {
-        a: { distance: Number.POSITIVE_INFINITY },
-        b: { distance: Number.POSITIVE_INFINITY },
-        c: { distance: Number.POSITIVE_INFINITY },
-        d: { distance: 0 }
+        a: {distance: Number.POSITIVE_INFINITY},
+        b: {distance: Number.POSITIVE_INFINITY},
+        c: {distance: Number.POSITIVE_INFINITY},
+        d: {distance: 0}
       }
     })
   })
@@ -52,7 +51,7 @@ describe('alg.floydWarshall', function () {
     // having a negative value along the diagonal.
     expect(floydWarshall(g, weightFn(g))).to.eql({
       a: {
-        a: { distance: -2, predecessor: 'a' }
+        a: {distance: -2, predecessor: 'a'}
       }
     })
   })

@@ -1,6 +1,5 @@
-import chai from '../chai'
-const {expect} = chai
-import {alg, Graph} from 'ciena-graphlib'
+import {expect} from 'chai'
+import {Graph, alg} from 'ciena-graphlib'
 const {dijkstra} = alg
 import {describe, it} from 'mocha'
 
@@ -8,7 +7,7 @@ describe('alg.dijkstra', function () {
   it('assigns distance 0 for the source node', function () {
     var g = new Graph()
     g.setNode('source')
-    expect(dijkstra(g, 'source')).to.eql({ source: { distance: 0 } })
+    expect(dijkstra(g, 'source')).to.eql({source: {distance: 0}})
   })
 
   it('returns Number.POSITIVE_INFINITY for unconnected nodes', function () {
@@ -16,8 +15,8 @@ describe('alg.dijkstra', function () {
     g.setNode('a')
     g.setNode('b')
     expect(dijkstra(g, 'a')).to.eql({
-      a: { distance: 0 },
-      b: { distance: Number.POSITIVE_INFINITY }
+      a: {distance: 0},
+      b: {distance: Number.POSITIVE_INFINITY}
     })
   })
 
@@ -26,22 +25,22 @@ describe('alg.dijkstra', function () {
     g.setPath(['a', 'b', 'c'])
     g.setEdge('b', 'd')
     expect(dijkstra(g, 'a')).to.eql({
-      a: { distance: 0 },
-      b: { distance: 1, predecessor: 'a' },
-      c: { distance: 2, predecessor: 'b' },
-      d: { distance: 2, predecessor: 'b' }
+      a: {distance: 0},
+      b: {distance: 1, predecessor: 'a'},
+      c: {distance: 2, predecessor: 'b'},
+      d: {distance: 2, predecessor: 'b'}
     })
   })
 
   it('works for undirected graphs', function () {
-    var g = new Graph({ directed: false })
+    var g = new Graph({directed: false})
     g.setPath(['a', 'b', 'c'])
     g.setEdge('b', 'd')
     expect(dijkstra(g, 'a')).to.eql({
-      a: { distance: 0 },
-      b: { distance: 1, predecessor: 'a' },
-      c: { distance: 2, predecessor: 'b' },
-      d: { distance: 2, predecessor: 'b' }
+      a: {distance: 0},
+      b: {distance: 1, predecessor: 'a'},
+      c: {distance: 2, predecessor: 'b'},
+      d: {distance: 2, predecessor: 'b'}
     })
   })
 
@@ -53,10 +52,10 @@ describe('alg.dijkstra', function () {
     g.setEdge('c', 'd', 3)
 
     expect(dijkstra(g, 'a', weightFn(g))).to.eql({
-      a: { distance: 0 },
-      b: { distance: 1, predecessor: 'a' },
-      c: { distance: 2, predecessor: 'a' },
-      d: { distance: 4, predecessor: 'b' }
+      a: {distance: 0},
+      b: {distance: 1, predecessor: 'a'},
+      c: {distance: 2, predecessor: 'a'},
+      d: {distance: 4, predecessor: 'b'}
     })
   })
 
@@ -66,10 +65,10 @@ describe('alg.dijkstra', function () {
     g.setEdge('b', 'c')
 
     expect(dijkstra(g, 'd', undefined, function (e) { return g.inEdges(e) }), {
-      a: { distance: 2, predecessor: 'c' },
-      b: { distance: 2, predecessor: 'c' },
-      c: { distance: 1, predecessor: 'd' },
-      d: { distance: 0 }
+      a: {distance: 2, predecessor: 'c'},
+      b: {distance: 2, predecessor: 'c'},
+      c: {distance: 1, predecessor: 'd'},
+      d: {distance: 0}
     })
   })
 

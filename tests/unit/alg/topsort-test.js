@@ -1,13 +1,12 @@
-import chai from '../chai'
-const {expect} = chai
-import _ from 'lodash'
-import {alg, Graph} from 'ciena-graphlib'
+import {expect} from 'chai'
+import {Graph, alg} from 'ciena-graphlib'
 const {topsort} = alg
+import _ from 'lodash'
 import {describe, it} from 'mocha'
 
 describe('alg.topsort', function () {
   it('returns an empty array for an empty graph', function () {
-    expect(topsort(new Graph())).to.be.empty
+    expect(topsort(new Graph())).to.eql([])
   })
 
   it('sorts nodes such that earlier nodes have directed edges to later nodes', function () {

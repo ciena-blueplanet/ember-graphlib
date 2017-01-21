@@ -1,17 +1,16 @@
-import chai from '../chai'
-const {expect} = chai
-import _ from 'lodash'
-import {alg, Graph} from 'ciena-graphlib'
+import {expect} from 'chai'
+import {Graph, alg} from 'ciena-graphlib'
 const {components} = alg
+import _ from 'lodash'
 import {describe, it} from 'mocha'
 
 describe('alg.components', function () {
   it('returns an empty list for an empty graph', function () {
-    expect(components(new Graph({ directed: false }))).to.be.empty
+    expect(components(new Graph({directed: false}))).to.eql([])
   })
 
   it('returns singleton lists for unconnected nodes', function () {
-    var g = new Graph({ directed: false })
+    var g = new Graph({directed: false})
     g.setNode('a')
     g.setNode('b')
 
@@ -20,7 +19,7 @@ describe('alg.components', function () {
   })
 
   it('returns a list of nodes in a component', function () {
-    var g = new Graph({ directed: false })
+    var g = new Graph({directed: false})
     g.setEdge('a', 'b')
     g.setEdge('b', 'c')
 

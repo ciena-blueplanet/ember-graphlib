@@ -1,7 +1,6 @@
-import _ from 'lodash'
-import chai from '../chai'
-const {expect} = chai
+import {expect} from 'chai'
 import PriorityQueue from 'ciena-graphlib/data/priority-queue'
+import _ from 'lodash'
 import {beforeEach, describe, it} from 'mocha'
 
 describe('data.PriorityQueue', function () {
@@ -39,11 +38,11 @@ describe('data.PriorityQueue', function () {
   describe('has', function () {
     it('returns true if the key is in the queue', function () {
       pq.add('a', 1)
-      expect(pq.has('a')).to.be.true
+      expect(pq.has('a')).to.equal(true)
     })
 
     it('returns false if the key is not in the queue', function () {
-      expect(pq.has('a')).to.be.false
+      expect(pq.has('a')).to.equal(false)
     })
   })
 
@@ -56,7 +55,7 @@ describe('data.PriorityQueue', function () {
     })
 
     it('returns undefined if the key is not in the queue', function () {
-      expect(pq.priority('foo')).to.be.undefined
+      expect(pq.priority('foo')).to.equal(undefined)
     })
   })
 
@@ -86,12 +85,12 @@ describe('data.PriorityQueue', function () {
     })
 
     it('returns true if the key was added', function () {
-      expect(pq.add('a', 1)).to.be.true
+      expect(pq.add('a', 1)).to.equal(true)
     })
 
     it('returns false if the key already exists in the queue', function () {
       pq.add('a', 1)
-      expect(pq.add('a', 1)).to.be.false
+      expect(pq.add('a', 1)).to.equal(false)
     })
   })
 
