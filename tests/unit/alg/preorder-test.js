@@ -1,8 +1,7 @@
-import _ from 'lodash'
-import chai from '../chai'
-const {expect} = chai
-import {alg, Graph} from 'ciena-graphlib'
+import {expect} from 'chai'
+import {Graph, alg} from 'ciena-graphlib'
 const {preorder} = alg
+import _ from 'lodash'
 import {describe, it} from 'mocha'
 
 describe('alg.preorder', function () {
