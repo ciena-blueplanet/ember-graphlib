@@ -1,3 +1,7 @@
+# 2.2.1
+
+* **Fixed** build.
+
 # 2.2.0
 
 * **Added** `ember-lodash-shim` configuration to optimize build to only include necessary `lodash` methods.
