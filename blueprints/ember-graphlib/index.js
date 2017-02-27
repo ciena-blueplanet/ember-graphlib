@@ -6,7 +6,7 @@ module.exports = {
       .then(() => {
         return this.addAddonsToProject({
           packages: [
-            {name: 'ember-lodash-shim', target: '^1.2.0'}
+            {name: 'ember-lodash-shim', target: '^2.0.0'}
           ]
         })
       })

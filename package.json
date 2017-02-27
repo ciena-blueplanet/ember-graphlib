@@ -8,10 +8,10 @@
   },
   "scripts": {
     "build": "ember build",
-    "lint": "npm run lint-js",
-    "lint-js": "eslint addon app blueprints config tests *.js",
+    "lint": "lint-all-the-things",
     "start": "ember server",
-    "test": "npm run lint && ember test"
+    "test": "npm run lint && npm run test-addon",
+    "test-addon": "EMBER_TRY_SCENARIO=${EMBER_TRY_SCENARIO:=default} && ember try:one $EMBER_TRY_SCENARIO --- COVERAGE=true ember test"
   },
   "repository": {
     "type": "git",
@@ -33,18 +33,20 @@
     "ember-cli-htmlbars-inline-precompile": "0.3.6",
     "ember-cli-inject-live-reload": "^1.6.1",
     "ember-cli-mocha": "0.13.2",
+    "ember-cli-release": "^1.0.0-beta.2",
+    "ember-cli-shims": "^1.0.2",
     "ember-cli-test-loader": "1.1.1",
     "ember-cli-uglify": "^1.2.0",
     "ember-disable-prototype-extensions": "^1.1.0",
     "ember-export-application-global": "^1.1.1",
     "ember-load-initializers": "^0.6.3",
-    "ember-lodash-shim": "^1.2.0",
+    "ember-lodash-shim": "^2.0.0",
     "ember-resolver": "^2.1.1",
-    "ember-test-utils": "^1.7.0",
+    "ember-source": "^2.11.2",
+    "ember-test-utils": "^1.11.0",
     "eslint": "^3.14.0",
-    "eslint-config-frost-standard": "^5.3.2",
-    "loader.js": "^4.1.0",
-    "lodash-es": "^4.17.4"
+    "eslint-config-frost-standard": "^6.0.0",
+    "loader.js": "^4.1.0"
   },
   "keywords": [
     "algorithm",
@@ -64,31 +66,5 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "ember-lodash-shim": {
-    "includes": [
-      "bind",
-      "clone",
-      "constant",
-      "each",
-      "filter",
-      "has",
-      "indexOf",
-      "isArray",
-      "isEmpty",
-      "isFunction",
-      "isUndefined",
-      "keys",
-      "map",
-      "min",
-      "reduce",
-      "size",
-      "sortBy",
-      "transform",
-      "union",
-      "values"
-    ],
-    "includeLodash3Exports": false,
-    "whitelist": true
   }
 }
