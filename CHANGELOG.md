@@ -1,3 +1,8 @@
+# 2.2.2 (2017-05-11)
+
+* **Updated** the secure auth tokens in `.travis.yml`
+
+
 # 2.2.1
 
 * **Fixed** build.
