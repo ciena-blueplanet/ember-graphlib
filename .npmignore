@@ -8,13 +8,13 @@
 .bowerrc
 .editorconfig
 .ember-cli
+.eslintrc.js
 .eslintignore
 .github
 .gitignore
 .pullapprove.yml
 .travis
 .watchmanconfig
-.eslintrc.js
 .travis.yml
 bower.json
 dependency-snapshot.json
