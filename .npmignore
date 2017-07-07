@@ -8,8 +8,8 @@
 .bowerrc
 .editorconfig
 .ember-cli
-.eslintrc.js
 .eslintignore
+.eslintrc.js
 .github
 .gitignore
 .pullapprove.yml
