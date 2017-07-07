@@ -1,3 +1,7 @@
+# 2.2.3 (2017-07-07)
+
+Upgrade ember-cli to 2.12.3
+
 # 2.2.2 (2017-05-11)
 
 * **Updated** the secure auth tokens in `.travis.yml`
