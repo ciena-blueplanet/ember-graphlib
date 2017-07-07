@@ -1,7 +1,0 @@
-{
-  "globals": {
-    "find": false,
-    "pauseTest": false,
-    "sinon": false
-  }
-}

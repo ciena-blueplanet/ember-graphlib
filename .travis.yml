@@ -14,7 +14,6 @@ addons:
     packages:
     - google-chrome-stable
     - g++-4.8
-  firefox: 'latest-esr'
 
 cache:
   directories:
@@ -22,8 +21,12 @@ cache:
 
 env:
   matrix:
+  - EMBER_TRY_SCENARIO=ember-lts-2.4
   - EMBER_TRY_SCENARIO=ember-lts-2.8
   - EMBER_TRY_SCENARIO=ember-default
+  - EMBER_TRY_SCENARIO=ember-release
+  - EMBER_TRY_SCENARIO=ember-beta
+  - EMBER_TRY_SCENARIO=ember-canary
   global:
     - CXX=g++-4.8
     - secure: rY9Fdwi/k/ZyrwR9RVUMKT6H1P2TFG388bvmRrIc6r3KO39VQ0avLvVvTd2/kzdkAzgU5uMIivBwGE4D9McV+SXiVAC78AD3DgtfDs0vRSvePCNcC0PVLV36+CySgfFjYP2pGDbAac+CdKn4BrB5ZV9BV36b7W6A69f7KVWgcZ+zKiOyr52AnKqEr69PiTcu/aKejLHCVHncSGXT/ZnCECyZI+LP5Hak9GgG+ya+hFYEjvR8G0ju5CMR69v356Kex3IPjXwROm/5MI4RqbxDNXPS3Fa9FYg/CyhcvF36q0wQleLoPwycafT99FM5A64NmHDDXvaeVlY87hs0NfW+h5v220CWbkeEXZm6l4H+84vHlxtTamsw4Az8v8l82tttvaUoOnVa8NYLnarqbBfYIOvtmMzZewtOlBd/PdRG/2xBywi9epr6PhzXUjJQVIGf5wWiopmQiG3q9sb/LRFUymiq1F+zTlirY7CDwElwzzgy2PqFHpzNE7p1iH7CGElK+IEuLDkbFDUk/AEojVqa50FdkPFBgCy94dWWCZ9vuOA7Ke61SDmGgl3n1IgqqtRJEZIPZW4LbLmmIuMqAvfOr7GRH+Hb51pHYo/i4qnUSn/Zp9wTfEg454dgEV/nAveMCqeDcTW7Mwqmp32/BT58p0T6dCkpFkf9Bw6IUM5TCsI=
@@ -31,13 +34,14 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
+  - env: EMBER_TRY_SCENARIO=ember-release
   - env: EMBER_TRY_SCENARIO=ember-beta
   - env: EMBER_TRY_SCENARIO=ember-canary
   - node_js: 'stable'
 
 before_install:
 - npm config set spin false
-- npm install -g coveralls pr-bumper
+- npm install -g coveralls pr-bumper@^1.0.0
 - $(npm root -g)/pr-bumper/.travis/maybe-check-scope.sh
 
 install:
