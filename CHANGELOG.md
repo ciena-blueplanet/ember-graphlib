@@ -1,3 +1,6 @@
+# 2.2.4 (2017-12-13)
+* Change semver range of `ember-export-application-global` to align with other repos
+
 # 2.2.3 (2017-07-07)
 
 Upgrade ember-cli to 2.12.3
