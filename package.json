@@ -62,7 +62,7 @@
     "broccoli-merge-trees": "^2.0.0",
     "ciena-graphlib": "^1.0.8",
     "ember-cli-babel": "^5.1.7",
-    "ember-lodash-shim": "^2.0.0"
+    "ember-lodash-shim": "^2.0.7"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
