@@ -6,15 +6,15 @@ import graphlib from 'ciena-graphlib'
 import {describe, it} from 'mocha'
 
 describe('index', function () {
-  it('exports graphlib', function () {
+  it('should export graphlib', function () {
     expect(graphlib).to.be.an('object')
     expect(graphlib.Graph).to.be.a('function')
     expect(graphlib.json).to.be.a('object')
     expect(graphlib.alg).to.be.a('object')
   })
 
-  it('can do simple graph operations', function () {
-    var g = new graphlib.Graph()
+  it('should do simple graph operations', function () {
+    let g = new graphlib.Graph()
     g.setNode('a')
     g.setNode('b')
     g.setEdge('a', 'b')
@@ -23,14 +23,14 @@ describe('index', function () {
     expect(g.hasEdge('a', 'b')).to.equal(true)
   })
 
-  it('can serialize to json and back', function () {
-    var g = new graphlib.Graph()
+  it('should serialize to json and back', function () {
+    let g = new graphlib.Graph()
     g.setNode('a')
     g.setNode('b')
     g.setEdge('a', 'b')
 
-    var json = graphlib.json.write(g)
-    var g2 = graphlib.json.read(json)
+    const json = graphlib.json.write(g)
+    const g2 = graphlib.json.read(json)
     expect(g2.hasNode('a')).to.equal(true)
     expect(g2.hasNode('b')).to.equal(true)
     expect(g2.hasEdge('a', 'b')).to.equal(true)

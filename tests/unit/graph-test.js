@@ -4,47 +4,47 @@ import _ from 'lodash'
 import {beforeEach, describe, it} from 'mocha'
 
 describe('Graph', function () {
-  var g
+  let g
 
   beforeEach(function () {
     g = new Graph()
   })
 
   describe('initial state', function () {
-    it('has no nodes', function () {
+    it('should have no nodes', function () {
       expect(g.nodeCount()).to.equal(0)
     })
 
-    it('has no edges', function () {
+    it('should have no edges', function () {
       expect(g.edgeCount()).to.equal(0)
     })
 
-    it('has no attributes', function () {
+    it('should have no attributes', function () {
       expect(g.graph()).to.equal(undefined)
     })
 
-    it('defaults to a simple directed graph', function () {
+    it('should default to a simple directed graph', function () {
       expect(g.isDirected()).to.equal(true)
       expect(g.isCompound()).to.equal(false)
       expect(g.isMultigraph()).to.equal(false)
     })
 
-    it('can be set to undirected', function () {
-      var g = new Graph({directed: false})
+    it('should be able to be set to undirected', function () {
+      const g = new Graph({directed: false})
       expect(g.isDirected()).to.equal(false)
       expect(g.isCompound()).to.equal(false)
       expect(g.isMultigraph()).to.equal(false)
     })
 
-    it('can be set to a compound graph', function () {
-      var g = new Graph({compound: true})
+    it('should be able to be set to a compound graph', function () {
+      const g = new Graph({compound: true})
       expect(g.isDirected()).to.equal(true)
       expect(g.isCompound()).to.equal(true)
       expect(g.isMultigraph()).to.equal(false)
     })
 
-    it('can be set to a mulitgraph', function () {
-      var g = new Graph({multigraph: true})
+    it('should be able to be set to a mulitgraph', function () {
+      const g = new Graph({multigraph: true})
       expect(g.isDirected()).to.equal(true)
       expect(g.isCompound()).to.equal(false)
       expect(g.isMultigraph()).to.equal(true)
@@ -52,22 +52,22 @@ describe('Graph', function () {
   })
 
   describe('setGraph', function () {
-    it('can be used to get and set properties for the graph', function () {
+    it('should be used to get and set properties for the graph', function () {
       g.setGraph('foo')
       expect(g.graph()).to.equal('foo')
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setGraph('foo')).to.equal(g)
     })
   })
 
   describe('nodes', function () {
-    it('is empty if there are no nodes in the graph', function () {
+    it('should be empty if there are no nodes in the graph', function () {
       expect(g.nodes()).to.eql([])
     })
 
-    it('returns the ids of nodes in the graph', function () {
+    it('should return the ids of nodes in the graph', function () {
       g.setNode('a')
       g.setNode('b')
       expect(_.sortBy(g.nodes())).to.eql(['a', 'b'])
@@ -75,7 +75,7 @@ describe('Graph', function () {
   })
 
   describe('sources', function () {
-    it('returns nodes in the graph that have no in-edges', function () {
+    it('should return nodes in the graph that have no in-edges', function () {
       g.setPath(['a', 'b', 'c'])
       g.setNode('d')
       expect(_.sortBy(g.sources())).to.eql(['a', 'd'])
@@ -83,7 +83,7 @@ describe('Graph', function () {
   })
 
   describe('sinks', function () {
-    it('returns nodes in the graph that have no out-edges', function () {
+    it('should return nodes in the graph that have no out-edges', function () {
       g.setPath(['a', 'b', 'c'])
       g.setNode('d')
       expect(_.sortBy(g.sinks())).to.eql(['c', 'd'])
@@ -91,12 +91,12 @@ describe('Graph', function () {
   })
 
   describe('filterNodes', function () {
-    it('returns an identical graph when the filter selects everything', function () {
+    it('should return an identical graph when the filter selects everything', function () {
       g.setGraph('graph label')
       g.setNode('a', 123)
       g.setPath(['a', 'b', 'c'])
       g.setEdge('a', 'c', 456)
-      var g2 = g.filterNodes(function () { return true })
+      const g2 = g.filterNodes(function () { return true })
       expect(_.sortBy(g2.nodes())).eqls(['a', 'b', 'c'])
       expect(_.sortBy(g2.successors('a'))).eqls(['b', 'c'])
       expect(_.sortBy(g2.successors('b'))).eqls(['c'])
@@ -105,27 +105,27 @@ describe('Graph', function () {
       expect(g2.graph()).eqls('graph label')
     })
 
-    it('returns an empty graph when the filter selects nothing', function () {
+    it('should return an empty graph when the filter selects nothing', function () {
       g.setPath(['a', 'b', 'c'])
-      var g2 = g.filterNodes(function () { return false })
+      const g2 = g.filterNodes(function () { return false })
       expect(g2.nodes()).eqls([])
       expect(g2.edges()).eqls([])
     })
 
-    it('only includes nodes for which the filter returns true', function () {
+    it('should only include nodes for which the filter returns true', function () {
       g.setNodes(['a', 'b'])
-      var g2 = g.filterNodes(function (v) { return v === 'a' })
+      const g2 = g.filterNodes(function (v) { return v === 'a' })
       expect(g2.nodes()).eqls(['a'])
     })
 
-    it('removes edges that are connected to removed nodes', function () {
+    it('should remove edges that are connected to removed nodes', function () {
       g.setEdge('a', 'b')
-      var g2 = g.filterNodes(function (v) { return v === 'a' })
+      const g2 = g.filterNodes(function (v) { return v === 'a' })
       expect(_.sortBy(g2.nodes())).eqls(['a'])
       expect(g2.edges()).eqls([])
     })
 
-    it('preserves the directed option', function () {
+    it('should preserve the directed option', function () {
       g = new Graph({directed: true})
       expect(g.filterNodes(function () { return true }).isDirected()).to.equal(true)
 
@@ -133,7 +133,7 @@ describe('Graph', function () {
       expect(g.filterNodes(function () { return true }).isDirected()).to.equal(false)
     })
 
-    it('preserves the multigraph option', function () {
+    it('should preserve the multigraph option', function () {
       g = new Graph({multigraph: true})
       expect(g.filterNodes(function () { return true }).isMultigraph()).to.equal(true)
 
@@ -141,7 +141,7 @@ describe('Graph', function () {
       expect(g.filterNodes(function () { return true }).isMultigraph()).to.equal(false)
     })
 
-    it('preserves the compound option', function () {
+    it('should preserve the compound option', function () {
       g = new Graph({compound: true})
       expect(g.filterNodes(function () { return true }).isCompound()).to.equal(true)
 
@@ -149,160 +149,160 @@ describe('Graph', function () {
       expect(g.filterNodes(function () { return true }).isCompound()).to.equal(false)
     })
 
-    it('includes subgraphs', function () {
+    it('should include subgraphs', function () {
       g = new Graph({compound: true})
       g.setParent('a', 'parent')
 
-      var g2 = g.filterNodes(function () { return true })
+      const g2 = g.filterNodes(function () { return true })
       expect(g2.parent('a')).eqls('parent')
     })
 
-    it('includes multi-level subgraphs', function () {
+    it('should include multi-level subgraphs', function () {
       g = new Graph({compound: true})
       g.setParent('a', 'parent')
       g.setParent('parent', 'root')
 
-      var g2 = g.filterNodes(function () { return true })
+      const g2 = g.filterNodes(function () { return true })
       expect(g2.parent('a')).eqls('parent')
       expect(g2.parent('parent')).eqls('root')
     })
 
-    it('promotes a node to a higher subgraph if its parent is not included', function () {
+    it('should promote a node to a higher subgraph if its parent is not included', function () {
       g = new Graph({compound: true})
       g.setParent('a', 'parent')
       g.setParent('parent', 'root')
 
-      var g2 = g.filterNodes(function (v) { return v !== 'parent' })
+      const g2 = g.filterNodes(function (v) { return v !== 'parent' })
       expect(g2.parent('a')).eqls('root')
     })
   })
 
   describe('setNodes', function () {
-    it('creates multiple nodes', function () {
+    it('should create multiple nodes', function () {
       g.setNodes(['a', 'b', 'c'])
       expect(g.hasNode('a')).to.equal(true)
       expect(g.hasNode('b')).to.equal(true)
       expect(g.hasNode('c')).to.equal(true)
     })
 
-    it('can set a value for all of the nodes', function () {
+    it('should set a value for all of the nodes', function () {
       g.setNodes(['a', 'b', 'c'], 'foo')
       expect(g.node('a')).to.equal('foo')
       expect(g.node('b')).to.equal('foo')
       expect(g.node('c')).to.equal('foo')
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setNodes(['a', 'b', 'c'])).to.equal(g)
     })
   })
 
   describe('setNode', function () {
-    it("creates the node if it isn't part of the graph", function () {
+    it("should create the node if it isn't part of the graph", function () {
       g.setNode('a')
       expect(g.hasNode('a')).to.equal(true)
       expect(g.node('a')).to.equal(undefined)
       expect(g.nodeCount()).to.equal(1)
     })
 
-    it('can set a value for the node', function () {
+    it('should set a value for the node', function () {
       g.setNode('a', 'foo')
       expect(g.node('a')).to.equal('foo')
     })
 
-    it("does not change the node's value with a 1-arg invocation", function () {
+    it("should not change the node's value with a 1-arg invocation", function () {
       g.setNode('a', 'foo')
       g.setNode('a')
       expect(g.node('a')).to.equal('foo')
     })
 
-    it("can remove the node's value by passing undefined", function () {
+    it("should remove the node's value by passing undefined", function () {
       g.setNode('a', undefined)
       expect(g.node('a')).to.equal(undefined)
     })
 
-    it('is idempotent', function () {
+    it('should be idempotent', function () {
       g.setNode('a', 'foo')
       g.setNode('a', 'foo')
       expect(g.node('a')).to.equal('foo')
       expect(g.nodeCount()).to.equal(1)
     })
 
-    it('uses the stringified form of the id', function () {
+    it('should use the stringified form of the id', function () {
       g.setNode(1)
       expect(g.hasNode(1)).to.equal(true)
       expect(g.hasNode('1')).to.equal(true)
       expect(g.nodes()).eqls(['1'])
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setNode('a')).to.equal(g)
     })
   })
 
   describe('setNodeDefaults', function () {
-    it('sets a default label for new nodes', function () {
+    it('should set a default label for new nodes', function () {
       g.setDefaultNodeLabel('foo')
       g.setNode('a')
       expect(g.node('a')).to.equal('foo')
     })
 
-    it('does not change existing nodes', function () {
+    it('should not change existing nodes', function () {
       g.setNode('a')
       g.setDefaultNodeLabel('foo')
       expect(g.node('a')).to.equal(undefined)
     })
 
-    it('is not used if an explicit value is set', function () {
+    it('should not be used if an explicit value is set', function () {
       g.setDefaultNodeLabel('foo')
       g.setNode('a', 'bar')
       expect(g.node('a')).to.equal('bar')
     })
 
-    it('can take a function', function () {
+    it('should take a function', function () {
       g.setDefaultNodeLabel(function () { return 'foo' })
       g.setNode('a')
       expect(g.node('a')).to.equal('foo')
     })
 
-    it("can take a function that takes the node's name", function () {
+    it("should take a function that takes the node's name", function () {
       g.setDefaultNodeLabel(function (v) { return v + '-foo' })
       g.setNode('a')
       expect(g.node('a')).to.equal('a-foo')
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setDefaultNodeLabel('foo')).to.equal(g)
     })
   })
 
   describe('node', function () {
-    it("returns undefined if the node isn't part of the graph", function () {
+    it("should return undefined if the node isn't part of the graph", function () {
       expect(g.node('a')).to.equal(undefined)
     })
 
-    it('returns the value of the node if it is part of the graph', function () {
+    it('should return the value of the node if it is part of the graph', function () {
       g.setNode('a', 'foo')
       expect(g.node('a')).to.equal('foo')
     })
   })
 
   describe('removeNode', function () {
-    it('does nothing if the node is not in the graph', function () {
+    it('should do nothing if the node is not in the graph', function () {
       expect(g.nodeCount()).to.equal(0)
       g.removeNode('a')
       expect(g.hasNode('a')).to.equal(false)
       expect(g.nodeCount()).to.equal(0)
     })
 
-    it('removes the node if it is in the graph', function () {
+    it('should remove the node if it is in the graph', function () {
       g.setNode('a')
       g.removeNode('a')
       expect(g.hasNode('a')).to.equal(false)
       expect(g.nodeCount()).to.equal(0)
     })
 
-    it('is idempotent', function () {
+    it('should be idempotent', function () {
       g.setNode('a')
       g.removeNode('a')
       g.removeNode('a')
@@ -310,15 +310,15 @@ describe('Graph', function () {
       expect(g.nodeCount()).to.equal(0)
     })
 
-    it('removes edges incident on the node', function () {
+    it('should remove edges incident on the node', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       g.removeNode('b')
       expect(g.edgeCount()).to.equal(0)
     })
 
-    it('removes parent / child relationships for the node', function () {
-      var g = new Graph({compound: true})
+    it('should remove parent / child relationships for the node', function () {
+      let g = new Graph({compound: true})
       g.setParent('c', 'b')
       g.setParent('b', 'a')
       g.removeNode('b')
@@ -328,7 +328,7 @@ describe('Graph', function () {
       expect(g.parent('c')).to.equal(undefined)
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.removeNode('a')).to.equal(g)
     })
   })
@@ -338,30 +338,30 @@ describe('Graph', function () {
       g = new Graph({compound: true})
     })
 
-    it('throws if the graph is not compound', function () {
+    it('should throw if the graph is not compound', function () {
       expect(function () { new Graph().setParent('a', 'parent') }).to.throw()
     })
 
-    it('creates the parent if it does not exist', function () {
+    it('should create the parent if it does not exist', function () {
       g.setNode('a')
       g.setParent('a', 'parent')
       expect(g.hasNode('parent')).to.equal(true)
       expect(g.parent('a')).to.equal('parent')
     })
 
-    it('creates the child if it does not exist', function () {
+    it('should create the child if it does not exist', function () {
       g.setNode('parent')
       g.setParent('a', 'parent')
       expect(g.hasNode('a')).to.equal(true)
       expect(g.parent('a')).to.equal('parent')
     })
 
-    it('has the parent as undefined if it has never been invoked', function () {
+    it('should have the parent as undefined if it has never been invoked', function () {
       g.setNode('a')
       expect(g.parent('a')).to.equal(undefined)
     })
 
-    it('moves the node from the previous parent', function () {
+    it('should move the node from the previous parent', function () {
       g.setParent('a', 'parent')
       g.setParent('a', 'parent2')
       expect(g.parent('a')).to.equal('parent2')
@@ -369,21 +369,21 @@ describe('Graph', function () {
       expect(g.children('parent2')).to.eql(['a'])
     })
 
-    it('removes the parent if the parent is undefined', function () {
+    it('should remove the parent if the parent is undefined', function () {
       g.setParent('a', 'parent')
       g.setParent('a', undefined)
       expect(g.parent('a')).to.equal(undefined)
       expect(_.sortBy(g.children())).to.eql(['a', 'parent'])
     })
 
-    it('removes the parent if no parent was specified', function () {
+    it('should remove the parent if no parent was specified', function () {
       g.setParent('a', 'parent')
       g.setParent('a')
       expect(g.parent('a')).to.equal(undefined)
       expect(_.sortBy(g.children())).to.eql(['a', 'parent'])
     })
 
-    it('is idempotent to remove a parent', function () {
+    it('should be idempotent to remove a parent', function () {
       g.setParent('a', 'parent')
       g.setParent('a')
       g.setParent('a')
@@ -391,7 +391,7 @@ describe('Graph', function () {
       expect(_.sortBy(g.children())).to.eql(['a', 'parent'])
     })
 
-    it('uses the stringified form of the id', function () {
+    it('should use the stringified form of the id', function () {
       g.setParent(2, 1)
       g.setParent(3, 2)
       expect(g.parent(2)).equals('1')
@@ -399,13 +399,13 @@ describe('Graph', function () {
       expect(g.parent(3)).equals('2')
     })
 
-    it('preserves the tree invariant', function () {
+    it('should preserve the tree invariant', function () {
       g.setParent('c', 'b')
       g.setParent('b', 'a')
       expect(function () { g.setParent('a', 'c') }).to.throw()
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setParent('a', 'parent')).to.equal(g)
     })
   })
@@ -415,20 +415,20 @@ describe('Graph', function () {
       g = new Graph({compound: true})
     })
 
-    it('returns undefined if the graph is not compound', function () {
+    it('should return undefined if the graph is not compound', function () {
       expect(new Graph({compound: false}).parent('a')).to.equal(undefined)
     })
 
-    it('returns undefined if the node is not in the graph', function () {
+    it('should return undefined if the node is not in the graph', function () {
       expect(g.parent('a')).to.equal(undefined)
     })
 
-    it('defaults to undefined for new nodes', function () {
+    it('should default to undefined for new nodes', function () {
       g.setNode('a')
       expect(g.parent('a')).to.equal(undefined)
     })
 
-    it('returns the current parent assignment', function () {
+    it('should return the current parent assignment', function () {
       g.setNode('a')
       g.setNode('parent')
       g.setParent('a', 'parent')
@@ -441,40 +441,40 @@ describe('Graph', function () {
       g = new Graph({compound: true})
     })
 
-    it('returns undefined if the node is not in the graph', function () {
+    it('should return undefined if the node is not in the graph', function () {
       expect(g.children('a')).to.equal(undefined)
     })
 
-    it('defaults to en empty list for new nodes', function () {
+    it('should default to en empty list for new nodes', function () {
       g.setNode('a')
       expect(g.children('a')).to.eql([])
     })
 
-    it('returns undefined for a non-compound graph without the node', function () {
-      var g = new Graph()
+    it('should return undefined for a non-compound graph without the node', function () {
+      const g = new Graph()
       expect(g.children('a')).to.equal(undefined)
     })
 
-    it('returns an empty list for a non-compound graph with the node', function () {
-      var g = new Graph()
+    it('should return an empty list for a non-compound graph with the node', function () {
+      const g = new Graph()
       g.setNode('a')
       expect(g.children('a')).eqls([])
     })
 
-    it('returns all nodes for the root of a non-compound graph', function () {
-      var g = new Graph()
+    it('should return all nodes for the root of a non-compound graph', function () {
+      let g = new Graph()
       g.setNode('a')
       g.setNode('b')
       expect(_.sortBy(g.children())).eqls(['a', 'b'])
     })
 
-    it('returns children for the node', function () {
+    it('should return children for the node', function () {
       g.setParent('a', 'parent')
       g.setParent('b', 'parent')
       expect(_.sortBy(g.children('parent'))).to.eql(['a', 'b'])
     })
 
-    it('returns all nodes without a parent when the parent is not set', function () {
+    it('should return all nodes without a parent when the parent is not set', function () {
       g.setNode('a')
       g.setNode('b')
       g.setNode('c')
@@ -486,11 +486,11 @@ describe('Graph', function () {
   })
 
   describe('predecessors', function () {
-    it('returns undefined for a node that is not in the graph', function () {
+    it('should return undefined for a node that is not in the graph', function () {
       expect(g.predecessors('a')).to.equal(undefined)
     })
 
-    it('returns the predecessors of a node', function () {
+    it('should return the predecessors of a node', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       g.setEdge('a', 'a')
@@ -501,11 +501,11 @@ describe('Graph', function () {
   })
 
   describe('successors', function () {
-    it('returns undefined for a node that is not in the graph', function () {
+    it('should return undefined for a node that is not in the graph', function () {
       expect(g.successors('a')).to.equal(undefined)
     })
 
-    it('returns the successors of a node', function () {
+    it('should return the successors of a node', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       g.setEdge('a', 'a')
@@ -516,11 +516,11 @@ describe('Graph', function () {
   })
 
   describe('neighbors', function () {
-    it('returns undefined for a node that is not in the graph', function () {
+    it('should return undefined for a node that is not in the graph', function () {
       expect(g.neighbors('a')).to.equal(undefined)
     })
 
-    it('returns the neighbors of a node', function () {
+    it('should return the neighbors of a node', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       g.setEdge('a', 'a')
@@ -531,11 +531,11 @@ describe('Graph', function () {
   })
 
   describe('edges', function () {
-    it('is empty if there are no edges in the graph', function () {
+    it('should be empty if there are no edges in the graph', function () {
       expect(g.edges()).to.eql([])
     })
 
-    it('returns the keys for edges in the graph', function () {
+    it('should return the keys for edges in the graph', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       expect(_.sortBy(g.edges()), ['v', 'w']).to.eql([
@@ -546,25 +546,25 @@ describe('Graph', function () {
   })
 
   describe('setPath', function () {
-    it('creates a path of mutiple edges', function () {
+    it('should create a path of mutiple edges', function () {
       g.setPath(['a', 'b', 'c'])
       expect(g.hasEdge('a', 'b')).to.equal(true)
       expect(g.hasEdge('b', 'c')).to.equal(true)
     })
 
-    it('can set a value for all of the edges', function () {
+    it('should set a value for all of the edges', function () {
       g.setPath(['a', 'b', 'c'], 'foo')
       expect(g.edge('a', 'b')).to.equal('foo')
       expect(g.edge('b', 'c')).to.equal('foo')
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setPath(['a', 'b', 'c'])).to.equal(g)
     })
   })
 
   describe('setEdge', function () {
-    it("creates the edge if it isn't part of the graph", function () {
+    it("should create the edge if it isn't part of the graph", function () {
       g.setNode('a')
       g.setNode('b')
       g.setEdge('a', 'b')
@@ -574,64 +574,64 @@ describe('Graph', function () {
       expect(g.edgeCount()).to.equal(1)
     })
 
-    it('creates the nodes for the edge if they are not part of the graph', function () {
+    it('should create the nodes for the edge if they are not part of the graph', function () {
       g.setEdge('a', 'b')
       expect(g.hasNode('a')).to.equal(true)
       expect(g.hasNode('b')).to.equal(true)
       expect(g.nodeCount()).to.equal(2)
     })
 
-    it("creates a multi-edge if if it isn't part of the graph", function () {
-      var g = new Graph({multigraph: true})
+    it("should create a multi-edge if if it isn't part of the graph", function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b', undefined, 'name')
       expect(g.hasEdge('a', 'b')).to.equal(false)
       expect(g.hasEdge('a', 'b', 'name')).to.equal(true)
     })
 
-    it('throws if a multi-edge is used with a non-multigraph', function () {
+    it('should throw if a multi-edge is used with a non-multigraph', function () {
       expect(function () { g.setEdge('a', 'b', undefined, 'name') }).to.throw()
     })
 
-    it('changes the value for an edge if it is already in the graph', function () {
+    it('should change the value for an edge if it is already in the graph', function () {
       g.setEdge('a', 'b', 'foo')
       g.setEdge('a', 'b', 'bar')
       expect(g.edge('a', 'b')).to.equal('bar')
     })
 
-    it('deletes the value for the edge if the value arg is undefined', function () {
+    it('should delete the value for the edge if the value arg is undefined', function () {
       g.setEdge('a', 'b', 'foo')
       g.setEdge('a', 'b', undefined)
       expect(g.edge('a', 'b')).to.equal(undefined)
       expect(g.hasEdge('a', 'b')).to.equal(true)
     })
 
-    it('changes the value for a multi-edge if it is already in the graph', function () {
-      var g = new Graph({multigraph: true})
+    it('should change the value for a multi-edge if it is already in the graph', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b', 'value', 'name')
       g.setEdge('a', 'b', undefined, 'name')
       expect(g.edge('a', 'b', 'name')).to.equal(undefined)
       expect(g.hasEdge('a', 'b', 'name')).to.equal(true)
     })
 
-    it('can take an edge object as the first parameter', function () {
+    it('should take an edge object as the first parameter', function () {
       g.setEdge({v: 'a', w: 'b'}, 'value')
       expect(g.edge('a', 'b')).to.equal('value')
     })
 
-    it('can take an multi-edge object as the first parameter', function () {
-      var g = new Graph({multigraph: true})
+    it('should take an multi-edge object as the first parameter', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge({v: 'a', w: 'b', name: 'name'}, 'value')
       expect(g.edge('a', 'b', 'name')).to.equal('value')
     })
 
-    it('uses the stringified form of the id #1', function () {
+    it('should use the stringified form of the id #1', function () {
       g.setEdge(1, 2, 'foo')
       expect(g.edges()).eqls([{v: '1', w: '2'}])
       expect(g.edge('1', '2')).to.equal('foo')
       expect(g.edge(1, 2)).to.equal('foo')
     })
 
-    it('uses the stringified form of the id #2', function () {
+    it('should use the stringified form of the id #2', function () {
       g = new Graph({multigraph: true})
       g.setEdge(1, 2, 'foo', undefined)
       expect(g.edges()).eqls([{v: '1', w: '2'}])
@@ -639,7 +639,7 @@ describe('Graph', function () {
       expect(g.edge(1, 2)).to.equal('foo')
     })
 
-    it('uses the stringified form of the id with a name', function () {
+    it('should use the stringified form of the id with a name', function () {
       g = new Graph({multigraph: true})
       g.setEdge(1, 2, 'foo', 3)
       expect(g.edge('1', '2', '3')).to.equal('foo')
@@ -647,21 +647,21 @@ describe('Graph', function () {
       expect(g.edges()).eqls([{v: '1', w: '2', name: '3'}])
     })
 
-    it('treats edges in opposite directions as distinct in a digraph', function () {
+    it('should treat edges in opposite directions as distinct in a digraph', function () {
       g.setEdge('a', 'b')
       expect(g.hasEdge('a', 'b')).to.equal(true)
       expect(g.hasEdge('b', 'a')).to.equal(false)
     })
 
-    it('handles undirected graph edges', function () {
-      var g = new Graph({directed: false})
+    it('should handle undirected graph edges', function () {
+      let g = new Graph({directed: false})
       g.setEdge('a', 'b', 'foo')
       expect(g.edge('a', 'b')).to.equal('foo')
       expect(g.edge('b', 'a')).to.equal('foo')
     })
 
-    it('handles undirected edges where id has different order than Stringified id', function () {
-      var g = new Graph({directed: false})
+    it('should handle undirected edges where id has different order than Stringified id', function () {
+      let g = new Graph({directed: false})
       g.setEdge(9, 10, 'foo')
       expect(g.hasEdge('9', '10')).to.equal(true)
       expect(g.hasEdge(9, 10)).to.equal(true)
@@ -671,38 +671,38 @@ describe('Graph', function () {
       expect(g.edge(9, 10)).eqls('foo')
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setEdge('a', 'b')).to.equal(g)
     })
   })
 
   describe('setDefaultEdgeLabel', function () {
-    it('sets a default label for new edges', function () {
+    it('should set a default label for new edges', function () {
       g.setDefaultEdgeLabel('foo')
       g.setEdge('a', 'b')
       expect(g.edge('a', 'b')).to.equal('foo')
     })
 
-    it('does not change existing edges', function () {
+    it('should not change existing edges', function () {
       g.setEdge('a', 'b')
       g.setDefaultEdgeLabel('foo')
       expect(g.edge('a', 'b')).to.equal(undefined)
     })
 
-    it('is not used if an explicit value is set', function () {
+    it('should not use if an explicit value is set', function () {
       g.setDefaultEdgeLabel('foo')
       g.setEdge('a', 'b', 'bar')
       expect(g.edge('a', 'b')).to.equal('bar')
     })
 
-    it('can take a function', function () {
+    it('should take a function', function () {
       g.setDefaultEdgeLabel(function () { return 'foo' })
       g.setEdge('a', 'b')
       expect(g.edge('a', 'b')).to.equal('foo')
     })
 
-    it("can take a function that takes the edge's endpoints and name", function () {
-      var g = new Graph({multigraph: true})
+    it("should take a function that takes the edge's endpoints and name", function () {
+      let g = new Graph({multigraph: true})
       g.setDefaultEdgeLabel(function (v, w, name) {
         return v + '-' + w + '-' + name + '-foo'
       })
@@ -710,42 +710,42 @@ describe('Graph', function () {
       expect(g.edge('a', 'b', 'name')).to.equal('a-b-name-foo')
     })
 
-    it('does not set a default value for a multi-edge that already exists', function () {
-      var g = new Graph({multigraph: true})
+    it('should not set a default value for a multi-edge that already exists', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b', 'old', 'name')
       g.setDefaultEdgeLabel(function () { return 'should not set this' })
       g.setEdge({v: 'a', w: 'b', name: 'name'})
       expect(g.edge('a', 'b', 'name')).to.equal('old')
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       expect(g.setDefaultEdgeLabel('foo')).to.equal(g)
     })
   })
 
   describe('edge', function () {
-    it("returns undefined if the edge isn't part of the graph", function () {
+    it("should return undefined if the edge isn't part of the graph", function () {
       expect(g.edge('a', 'b')).to.equal(undefined)
       expect(g.edge({v: 'a', w: 'b'})).to.equal(undefined)
       expect(g.edge('a', 'b', 'foo')).to.equal(undefined)
     })
 
-    it('returns the value of the edge if it is part of the graph', function () {
+    it('should return the value of the edge if it is part of the graph', function () {
       g.setEdge('a', 'b', {foo: 'bar'})
       expect(g.edge('a', 'b')).to.eql({foo: 'bar'})
       expect(g.edge({v: 'a', w: 'b'})).to.eql({foo: 'bar'})
       expect(g.edge('b', 'a')).to.equal(undefined)
     })
 
-    it('returns the value of a multi-edge if it is part of the graph', function () {
-      var g = new Graph({multigraph: true})
+    it('should return the value of a multi-edge if it is part of the graph', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b', {bar: 'baz'}, 'foo')
       expect(g.edge('a', 'b', 'foo')).to.eql({bar: 'baz'})
       expect(g.edge('a', 'b')).to.equal(undefined)
     })
 
-    it('returns an edge in either direction in an undirected graph', function () {
-      var g = new Graph({directed: false})
+    it('should return an edge in either direction in an undirected graph', function () {
+      let g = new Graph({directed: false})
       g.setEdge('a', 'b', {foo: 'bar'})
       expect(g.edge('a', 'b')).to.eql({foo: 'bar'})
       expect(g.edge('b', 'a')).to.eql({foo: 'bar'})
@@ -753,29 +753,29 @@ describe('Graph', function () {
   })
 
   describe('removeEdge', function () {
-    it('has no effect if the edge is not in the graph', function () {
+    it('should have no effect if the edge is not in the graph', function () {
       g.removeEdge('a', 'b')
       expect(g.hasEdge('a', 'b')).to.equal(false)
       expect(g.edgeCount()).to.equal(0)
     })
 
-    it('can remove an edge by edgeObj', function () {
-      var g = new Graph({multigraph: true})
+    it('should remove an edge by edgeObj', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge({v: 'a', w: 'b', name: 'foo'})
       g.removeEdge({v: 'a', w: 'b', name: 'foo'})
       expect(g.hasEdge('a', 'b', 'foo')).to.equal(false)
       expect(g.edgeCount()).to.equal(0)
     })
 
-    it('can remove an edge by separate ids', function () {
-      var g = new Graph({multigraph: true})
+    it('should remove an edge by separate ids', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge({v: 'a', w: 'b', name: 'foo'})
       g.removeEdge('a', 'b', 'foo')
       expect(g.hasEdge('a', 'b', 'foo')).to.equal(false)
       expect(g.edgeCount()).to.equal(0)
     })
 
-    it('correctly removes neighbors', function () {
+    it('should correctly removes neighbors', function () {
       g.setEdge('a', 'b')
       g.removeEdge('a', 'b')
       expect(g.successors('a')).to.eql([])
@@ -784,8 +784,8 @@ describe('Graph', function () {
       expect(g.neighbors('b')).to.eql([])
     })
 
-    it('correctly decrements neighbor counts', function () {
-      var g = new Graph({multigraph: true})
+    it('should correctly decrements neighbor counts', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge({v: 'a', w: 'b', name: 'foo'})
       g.removeEdge('a', 'b')
@@ -796,26 +796,26 @@ describe('Graph', function () {
       expect(g.neighbors('b')).to.eql(['a'])
     })
 
-    it('works with undirected graphs', function () {
-      var g = new Graph({directed: false})
+    it('should work with undirected graphs', function () {
+      let g = new Graph({directed: false})
       g.setEdge('h', 'g')
       g.removeEdge('g', 'h')
       expect(g.neighbors('g')).to.eql([])
       expect(g.neighbors('h')).to.eql([])
     })
 
-    it('is chainable', function () {
+    it('should be chainable', function () {
       g.setEdge('a', 'b')
       expect(g.removeEdge('a', 'b')).to.equal(g)
     })
   })
 
   describe('inEdges', function () {
-    it('returns undefined for a node that is not in the graph', function () {
+    it('should return undefined for a node that is not in the graph', function () {
       expect(g.inEdges('a')).to.equal(undefined)
     })
 
-    it('returns the edges that point at the specified node', function () {
+    it('should return the edges that point at the specified node', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       expect(g.inEdges('a')).to.eql([])
@@ -823,8 +823,8 @@ describe('Graph', function () {
       expect(g.inEdges('c')).to.eql([{v: 'b', w: 'c'}])
     })
 
-    it('works for multigraphs', function () {
-      var g = new Graph({multigraph: true})
+    it('should work for multigraphs', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge('a', 'b', undefined, 'bar')
       g.setEdge('a', 'b', undefined, 'foo')
@@ -836,8 +836,8 @@ describe('Graph', function () {
       ])
     })
 
-    it('can return only edges from a specified node', function () {
-      var g = new Graph({multigraph: true})
+    it('should return only edges from a specified node', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge('a', 'b', undefined, 'foo')
       g.setEdge('a', 'c')
@@ -853,11 +853,11 @@ describe('Graph', function () {
   })
 
   describe('outEdges', function () {
-    it('returns undefined for a node that is not in the graph', function () {
+    it('should return undefined for a node that is not in the graph', function () {
       expect(g.outEdges('a')).to.equal(undefined)
     })
 
-    it('returns all edges that this node points at', function () {
+    it('should return all edges that this node points at', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       expect(g.outEdges('a')).to.eql([{v: 'a', w: 'b'}])
@@ -865,8 +865,8 @@ describe('Graph', function () {
       expect(g.outEdges('c')).to.eql([])
     })
 
-    it('works for multigraphs', function () {
-      var g = new Graph({multigraph: true})
+    it('should work for multigraphs', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge('a', 'b', undefined, 'bar')
       g.setEdge('a', 'b', undefined, 'foo')
@@ -878,8 +878,8 @@ describe('Graph', function () {
       expect(g.outEdges('b')).to.eql([])
     })
 
-    it('can return only edges to a specified node', function () {
-      var g = new Graph({multigraph: true})
+    it('should return only edges to a specified node', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge('a', 'b', undefined, 'foo')
       g.setEdge('a', 'c')
@@ -895,11 +895,11 @@ describe('Graph', function () {
   })
 
   describe('nodeEdges', function () {
-    it('returns undefined for a node that is not in the graph', function () {
+    it('should return undefined for a node that is not in the graph', function () {
       expect(g.nodeEdges('a')).to.equal(undefined)
     })
 
-    it('returns all edges that this node points at', function () {
+    it('should return all edges that this node points at', function () {
       g.setEdge('a', 'b')
       g.setEdge('b', 'c')
       expect(g.nodeEdges('a')).to.eql([{v: 'a', w: 'b'}])
@@ -908,8 +908,8 @@ describe('Graph', function () {
       expect(g.nodeEdges('c')).to.eql([{v: 'b', w: 'c'}])
     })
 
-    it('works for multigraphs', function () {
-      var g = new Graph({multigraph: true})
+    it('should work for multigraphs', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge({v: 'a', w: 'b', name: 'bar'})
       g.setEdge({v: 'a', w: 'b', name: 'foo'})
@@ -925,8 +925,8 @@ describe('Graph', function () {
       ])
     })
 
-    it('can return only edges between specific nodes', function () {
-      var g = new Graph({multigraph: true})
+    it('should return only edges between specific nodes', function () {
+      let g = new Graph({multigraph: true})
       g.setEdge('a', 'b')
       g.setEdge({v: 'a', w: 'b', name: 'foo'})
       g.setEdge('a', 'c')

@@ -4,14 +4,14 @@ const {dijkstra} = alg
 import {describe, it} from 'mocha'
 
 describe('alg.dijkstra', function () {
-  it('assigns distance 0 for the source node', function () {
-    var g = new Graph()
+  it('should assign distance 0 for the source node', function () {
+    let g = new Graph()
     g.setNode('source')
     expect(dijkstra(g, 'source')).to.eql({source: {distance: 0}})
   })
 
-  it('returns Number.POSITIVE_INFINITY for unconnected nodes', function () {
-    var g = new Graph()
+  it('should return Number.POSITIVE_INFINITY for unconnected nodes', function () {
+    let g = new Graph()
     g.setNode('a')
     g.setNode('b')
     expect(dijkstra(g, 'a')).to.eql({
@@ -20,8 +20,8 @@ describe('alg.dijkstra', function () {
     })
   })
 
-  it('returns the distance and path from the source node to other nodes', function () {
-    var g = new Graph()
+  it('should return the distance and path from the source node to other nodes', function () {
+    let g = new Graph()
     g.setPath(['a', 'b', 'c'])
     g.setEdge('b', 'd')
     expect(dijkstra(g, 'a')).to.eql({
@@ -32,8 +32,8 @@ describe('alg.dijkstra', function () {
     })
   })
 
-  it('works for undirected graphs', function () {
-    var g = new Graph({directed: false})
+  it('should work for undirected graphs', function () {
+    let g = new Graph({directed: false})
     g.setPath(['a', 'b', 'c'])
     g.setEdge('b', 'd')
     expect(dijkstra(g, 'a')).to.eql({
@@ -44,8 +44,8 @@ describe('alg.dijkstra', function () {
     })
   })
 
-  it('uses an optionally supplied weight function', function () {
-    var g = new Graph()
+  it('should use an optionally supplied weight function', function () {
+    let g = new Graph()
     g.setEdge('a', 'b', 1)
     g.setEdge('a', 'c', 2)
     g.setEdge('b', 'd', 3)
@@ -59,8 +59,8 @@ describe('alg.dijkstra', function () {
     })
   })
 
-  it('uses an optionally supplied edge function', function () {
-    var g = new Graph()
+  it('should use an optionally supplied edge function', function () {
+    let g = new Graph()
     g.setPath(['a', 'c', 'd'])
     g.setEdge('b', 'c')
 
@@ -72,8 +72,8 @@ describe('alg.dijkstra', function () {
     })
   })
 
-  it('throws an Error if it encounters a negative edge weight', function () {
-    var g = new Graph()
+  it('should throw an Error if it encounters a negative edge weight', function () {
+    let g = new Graph()
     g.setEdge('a', 'b', 1)
     g.setEdge('a', 'c', -2)
     g.setEdge('b', 'd', 3)
