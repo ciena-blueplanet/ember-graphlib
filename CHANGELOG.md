@@ -1,3 +1,17 @@
+# 4.0.0 (2018-01-03)
+* Remove `npm-install-security-check` dependency
+* Remove `ember-cli-code-coverage` integration from `npm run test-addon`
+* Pin `ember-cli-htmlbars-inline-precompile` to `0.3.12`
+* Upgrade `broccoli-merge-trees` to `^2.0.0`
+* Upgrade `broccoli-funnel` to `^2.0.1`
+* Remove blueprint and move `ciena-graphlib` and `ember-lodash-shim` to dependencies
+* Install `ember-frost-test@^4.0.0`
+* Add `CHANGELOG.md` to _.remarkignore_
+* Remove _package-lock.json_ file until officially support Node 8
+* Add _NOTES.md_ file
+* Update `ember-lodash-shim` to `^2.0.7`
+* Remove ember-cli-mocha useLintTree configuration option
+
 # 3.0.0 (2018-01-02)
 
 **Actions to take in your application or addon:**
