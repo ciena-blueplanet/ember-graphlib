@@ -1,4 +1,10 @@
 # 3.0.0 (2018-01-02)
+
+**Actions to take in your application or addon:**
+* Uninstall `ciena-graphlib` as it is now provided by this addon as a dependency
+* Uninstall `ember-lodash-shim` as version `^2.0.7` is now provided by this addon as a dependency
+
+Changes:
 * Remove `npm-install-security-check` dependency
 * Remove `ember-cli-code-coverage` integration from `npm run test-addon`
 * Pin `ember-cli-htmlbars-inline-precompile` to `0.3.12`
