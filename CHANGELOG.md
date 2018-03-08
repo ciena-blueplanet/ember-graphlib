@@ -1,3 +1,14 @@
+# 4.0.1 (2018-03-08)
+* **Updated** pull request template
+* **Added** issue template
+* **Updated** to `pr-bumper` version `3`
+* **Updated** to node 8
+* **Added** slack integration
+* **Updated** `ember-test-utils` to `^8.1.1`
+* **Updated** `ember-cli-frost-blueprints` to `^5.0.2`
+* **Updated** `ember-lodash-shim` to `^3.0.1`
+* **Added** `package-lock.json` file
+
 # 4.0.0 (2018-01-03)
 * Remove `npm-install-security-check` dependency
 * Remove `ember-cli-code-coverage` integration from `npm run test-addon`
